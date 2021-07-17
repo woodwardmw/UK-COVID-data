@@ -1,1 +1,2 @@
 # UK-COVID-data
+This script takes daily reports from either today or yesterday from the UK government COVID-19 dashboard (https://coronavirus.data.gov.uk/details/download) and creates several graphs, based on 7-day averages, showing trends over time.
