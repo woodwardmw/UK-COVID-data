@@ -4,7 +4,7 @@ library(RCurl)
 report_date <- format(Sys.Date(), "%Y-%m-%d")  # The date (as a string) up to which data should be downloaded, to be entered into the URL. Maximum value should be the last government report that is available, probably today or yesterday.
 url <- paste("https://api.coronavirus.data.gov.uk/v2/data?areaType=overview&metric=newCasesByPublishDateRollingSum&format=csv&release=", report_date, sep = '')
 if(!url.exists(url)){  # If today's report doesn't yet exist, use yesterday's
-report_date <- format(Sys.Date() - 1, "%Y-%m-%d")  # The date (as a string) up to which data should be downloaded, to be entered into the URL. Maximum value should be the last government report that is available, probably today or yesterday.
+report_date <- format(Sys.Date() - 1, "%Y-%m-%d")
 url <- paste("https://api.coronavirus.data.gov.uk/v2/data?areaType=overview&metric=newCasesByPublishDateRollingSum&format=csv&release=", report_date, sep = '')
   }
 COVID_cases <- read_csv(url)
@@ -35,17 +35,22 @@ theme(
 ) + xlab("Date") + ylab("Cases") + labs(title = "UK COVID-19 Cases and Hospitalisations: 2020-2021") + scale_x_date(date_labels = "%B %Y")
 dev.off() 
 
+#Jan 2021 to present cases
 png(file = paste(dir_name, "/7dayCasesJanPresent.png", sep = ''), width = 1200, height = 800)
 COVID_cases %>% filter(date >= as.Date("2021-01-01")) %>% ggplot(aes(x = date, y = sevenDayCases)) + geom_line() + scale_y_continuous(trans = "log10") + xlab("Date") + ylab("Cases") + labs(title = "UK Rolling 7-day COVID-19 cases: January - July 2021") + scale_x_date(date_labels = "%B %Y")
-dev.off() 
+dev.off()
+
+# Jan 2021 to present hospitalisations
 png(file = paste(dir_name, "/7dayHospJanPresent.png", sep = ''), width = 1200, height = 800)
 COVID_hosp %>% filter(date >= as.Date("2021-01-01")) %>% ggplot(aes(x = date, y = sevenDayCases)) + geom_line() + scale_y_continuous(trans = "log10") + xlab("Date") + ylab("Hospitalisations") + labs(title = "UK Rolling 7-day hospitalisations: January - July 2021") + scale_x_date(date_labels = "%B %Y")
 dev.off() 
 
+# May 2021 to present cases
 png(file = paste(dir_name, "/7dayCasesMayPresent.png", sep = ''), width = 1200, height = 800)
 COVID_cases %>% filter(date >= as.Date("2021-05-01")) %>% ggplot(aes(x = date, y = sevenDayCases)) + geom_line() + scale_y_continuous(trans = "log10") + xlab("Date") + ylab("Cases") + labs(title = "UK Rolling 7-day COVID-19 cases: May - July 2021") + scale_x_date(date_labels = "%B %Y")
 dev.off() 
 
+# May 2021 to present hospitalisations
 png(file = paste(dir_name, "/7dayHospMayPresent.png", sep = ''), width = 1200, height = 800)
 COVID_hosp %>% filter(date >= as.Date("2021-05-01")) %>% ggplot(aes(x = date, y = sevenDayCases)) + geom_line() + scale_y_continuous(trans = "log10") + xlab("Date") + ylab("Hospitalisations") + labs(title = "UK Rolling 7-day COVID-19 hospitalisations: May - July 2021") + scale_x_date(date_labels = "%B %Y")
 dev.off() 
